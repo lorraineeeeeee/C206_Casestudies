@@ -133,5 +133,53 @@ public class C206_CaseStudy {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public static String searchRate(ArrayList<currencies> currenciesList) { //yunqian
+		
+		String currencySearch = Helper.readString("Enter a currency to search > ");
+		
+		C206_CaseStudy.setHeader(currencySearch.toUpperCase());
+		String output = "";
+		
+		for (int i = 0; i < currenciesList.size(); i++) {
+		
+			if (currencySearch.equals(currenciesList.get(i).getCurrencies())) {
+				output += "BUY RATE: " + currenciesList.get(i).getBuyRate();
+				output += "SELL RATE: " + currenciesList.get(i).getSellRate();
+			}
+		}
+		
+		return output;
+	}
+	
+	public static double currencyCal(ArrayList<currencies> currenciesList) { //yunqian
+		
+		C206_CaseStudy.setHeader("CURRENCY CALCULATOR");
+		C206_CaseStudy.viewAllCurrencies(currenciesList);
+		String currencyConvert = Helper.readString("Choose a currency you want to calculate > ");
+		String rateType = Helper.readString("Choose type of rate you want to convert (BUY/SELL) > ");
+		double amount = Helper.readDouble("Enter an amount to convert");
+		double convertedAmt = 0.0;
+		
+		if (rateType.equalsIgnoreCase("buy")) {
+			for (currencies cl:currenciesList) {
+				if (cl.getCurrencies().equals(currencyConvert.toLowerCase())) {
+					convertedAmt = amount*cl.getBuyRate();
+				}
+			}
+		}
+		else if (rateType.equalsIgnoreCase("sell")) {
+			for (currencies cl:currenciesList) {
+				if (cl.getCurrencies().equals(currencyConvert.toLowerCase())) {
+					convertedAmt = amount*cl.getSellRate();
+				}
+			}
+		}
+		else {
+			System.out.println("Invalid type");
+		}
+		
+		return convertedAmt;
+	}
 
 }
