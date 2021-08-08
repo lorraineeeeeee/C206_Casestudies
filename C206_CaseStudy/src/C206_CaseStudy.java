@@ -100,19 +100,24 @@ public class C206_CaseStudy {
 
 	}
 
+	public static String retrieveAllCurrencies(ArrayList<currencies> currenciesList) {// haziqah 
+		String output = "";
+
+		for (int i = 0; i < currenciesList.size(); i++) {
+			output += String.format("%-15s %-10s %-10s\n", currenciesList.get(i).getCurrencies(), 
+					currenciesList.get(i).getBuyRate(), currenciesList.get(i).getSellRate());
+		}
+		return output;
+	}
+	
 	private static void viewAllCurrencies(ArrayList<currencies> currenciesList) {// haziqah 
 		// TODO Auto-generated method stub
 		C206_CaseStudy.setHeader("view currencies");
-
-	}
-
-	private static currencies inputCurrencies() { // Haziqah
-		// TODO Auto-generated method stub
-		C206_CaseStudy.setHeader("add currencies");
-	}
-
-	private static void addCurrencies(ArrayList<currencies> currenciesList, currencies c) { // haziqah
-		// TODO Auto-generated method stub
+		
+		String output = String.format("%-15s %-10s %-10s\n", "CURRENCY", "BUY RATES", "SELL RATES");
+		
+		output += retrieveAllCurrencies(currenciesList);	
+		System.out.println(output);
 
 	}
 
@@ -124,14 +129,54 @@ public class C206_CaseStudy {
 		// TODO Auto-generated method stub
 
 	}
+	
+	
+	private static currencies inputCurrencies() { // Haziqah
+		// TODO Auto-generated method stub
+		C206_CaseStudy.setHeader("add currencies");
+		String currency = Helper.readString("Enter new currency > ");
+		double buyrate = Helper.readDouble("Enter new buy rate > ");
+		double sellrate = Helper.readDouble("Enter new sell rate > ");
+
+		currencies c = new currencies(currency, buyrate, sellrate);
+		return c;
+	}
+
+	private static void addCurrencies(ArrayList<currencies> currenciesList, currencies c) { // haziqah
+		// TODO Auto-generated method stub
+		currenciesList.add(c);
+		System.out.println("New currency added!");
+	}
+	
+	
+	
 	private static void deleteHoldings(ArrayList<holdings> holdingList) { //yingnan
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public static boolean doDeleteCurrency(ArrayList<currencies> currenciesList, String currencies) {
+		boolean isDeleted = false;
 
+		for (int i = 0; i < currenciesList.size(); i++) {
+			if (currencies.equalsIgnoreCase(currenciesList.get(i).getCurrencies())) {
+				isDeleted = true;
+			}
+		}
+		return isDeleted;
+	}
+	
 	private static void deleteCurrencies(ArrayList<currencies> currenciesList) { //haziqah
 		// TODO Auto-generated method stub
-
+		C206_CaseStudy.viewAllCurrencies(currenciesList);
+		String currency = Helper.readString("Enter currency > ");
+		Boolean isDeleted = doDeleteCurrency(currenciesList, currency);
+		
+		if (isDeleted == false) {
+			System.out.println("Invalid asset tag");
+		} else {
+			System.out.println(currency + " is deleted");
+		}
 	}
 	
 	public static String searchRate(ArrayList<currencies> currenciesList) { //yunqian
