@@ -64,7 +64,7 @@ public class C206_CaseStudyTest {
 	@Test
 	public void deleteHoldingsTest() {
 		
-		//
+		
 		//Test that when a holding is deleted, the holdings do not show under the list of available holdings.
 		C206_CaseStudy.deleteCurrencyHolding(currencyList);
 		assertNotEquals("Test that holdings arraylist size is 2", 2, currencyList.size());

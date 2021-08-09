@@ -2,7 +2,10 @@ import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
+
     private static final int OPTION_QUIT = 4;
+
+
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
@@ -95,4 +98,33 @@ public class C206_CaseStudy {
         System.out.println(output);
     }
 
-}
+		ArrayList<holdings> holdingList = new ArrayList<holdings>();
+
+
+
+	private static void itemTypeMenu() {
+		C206_CaseStudy.setHeader("ITEM TYPES");
+		System.out.println("1. currencies");
+		System.out.println("2. holdings");
+	}
+
+	private static void viewAllholdings(ArrayList<holdings> holdingList) {// yingnan
+		// TODO Auto-generated method stub
+		C206_CaseStudy.setHeader("view holdings");
+
+	}
+
+	public static boolean doDeleteCurrency(ArrayList<currencies> currenciesList, String currencies) {
+		boolean isDeleted = false;
+
+		for (int i = 0; i < currenciesList.size(); i++) {
+			if (currencies.equalsIgnoreCase(currenciesList.get(i).getCurrencies())) {
+				isDeleted = true;
+			}
+		}
+		return isDeleted;
+	}}
+	
+
+
+	

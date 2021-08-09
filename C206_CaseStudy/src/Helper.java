@@ -1,11 +1,5 @@
 
-/**
-* I declare that this code was written by me.
-* I will not copy or allow others to copy my code.
-* I understand that copying code is considered as plagiarism.
-* <p>
-* <Shi Ying Nan, 20030467>, <9 June 2021>
-*/
+
 import java.util.*;
 
 public class Helper {
@@ -129,7 +123,6 @@ public class Helper {
     }
     return date;
   }
-  
 
   private static String quit = "0";
 

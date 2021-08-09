@@ -1,4 +1,3 @@
-
 public class holdings extends currency {
 
 	private double companyHoldings;
@@ -11,5 +10,4 @@ public class holdings extends currency {
 	public double getCompanyHoldings() {
 		return companyHoldings;
 	}
-
 }
