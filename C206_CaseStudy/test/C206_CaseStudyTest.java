@@ -8,14 +8,10 @@ import org.junit.Test;
 
 public class C206_CaseStudyTest {
 
-
 	private currencies cc1;
 	private currencies cc2;
-	private holdings cb1;
-	private holdings cb2;
 
 	private ArrayList<currencies> currenciesList;
-
 
 	private holdings c1;
 	private holdings c2;
@@ -35,9 +31,6 @@ public class C206_CaseStudyTest {
 		currenciesList = new ArrayList<currencies>();
 
 	}
-
-
-
 
 	@Test
 	public void addHoldingsTest() {
@@ -61,30 +54,31 @@ public class C206_CaseStudyTest {
 
 		// Test that all list of all records can be displayed.
 		assertNotNull("Test if there is valid holdings arraylist to retrieve currency from", currencyList);
-		
-		//Test that the button "View All Currencies Holding Records" is able to be clicked.
+
+		// Test that the button "View All Currencies Holding Records" is able to be
+		// clicked.
 		String allHolding = C206_CaseStudy.retrieveCurrencyHolding(currencyList);
 		String testOutput = String.format("%-10s %-30.2f\n", "USD", 100000.00);
 		testOutput += String.format("%-10s %-30.2f\n", "AUD", 253400.00);
-		assertEquals("Test that ViewHoldings",testOutput,allHolding);
+		assertEquals("Test that ViewHoldings", testOutput, allHolding);
 	}
 
 	@Test
 	public void deleteHoldingsTest() {
-		
-		
-		//Test that when a holding is deleted, the holdings do not show under the list of available holdings.
+
+		// Test that when a holding is deleted, the holdings do not show under the list
+		// of available holdings.
 		C206_CaseStudy.deleteCurrencyHolding(currencyList);
 		assertNotEquals("Test that holdings arraylist size is 2", 2, currencyList.size());
-		
-		//Test that when a holding is deleted, all of their related fields will also be deleted from the system.
-		C206_CaseStudy.deleteCurrencyHolding(currencyList);
-		assertNull("Test if other fields are null",currencyList);
-		
-		//Test that the deleted holdings is not stored in the system after being deleted.
-		assertNull("Test if other fields are null",currencyList);
-		
 
+		// Test that when a holding is deleted, all of their related fields will also be
+		// deleted from the system.
+		C206_CaseStudy.deleteCurrencyHolding(currencyList);
+		assertNull("Test if other fields are null", currencyList);
+
+		// Test that the deleted holdings is not stored in the system after being
+		// deleted.
+		assertNull("Test if other fields are null", currencyList);
 
 	}
 
@@ -97,20 +91,19 @@ public class C206_CaseStudyTest {
 
 	@Test
 	public void buyTest() {
-		//test if there are available arraylist to get data from
+		// test if there are available arraylist to get data from
 		assertNotNull("test if there is any currencies to buy from ", currenciesList);
 
 		// test if buy rate is correct
 		double buyRate = 2.5;
-		boolean can = C206_CaseStudy.DoBuyData(currenciesList, buyRate);
+		boolean can = C206_CaseStudy.DoBuyData(currencyList, buyRate);
 		assertFalse("check that calculation is correct ", can);
-		
-		// test if can add transaction successfully
-		C206_CaseStudy.doBuy(currenciesList, cc1);
-		assertEquals("Check that currency arraylist size is 1", 1, currenciesList);
-		assertSame("Check that currency is added", cc1, currenciesList.get(0));
 
-		C206_CaseStudy.doBuy(currenciesList, cc2);
+		// test if can add transaction successfully
+		C206_CaseStudy.doBuy(currencyList, c1);
+		assertEquals("Check that currency arraylist size is 1", 1, currenciesList);
+
+		C206_CaseStudy.doBuy(currencyList, c2);
 		assertEquals("Check that currency arraylist size is 2", 2, currenciesList);
 		assertSame("Check that Currency is added", cc2, currenciesList.get(1));
 	}
@@ -129,8 +122,8 @@ public class C206_CaseStudyTest {
 	public void ShowTest() {
 		assertNotNull("check if there is valid buyList to retrieve currency from", currenciesList);
 		C206_CaseStudy.doBuy(currenciesList, cc2);
-		assertEquals("Check that Camcorder arraylist size is 2", 2, currenciesList.size());
-		assertSame("Check that Camcorder is added", cc2, currenciesList.get(1));
+		assertEquals("Check that CURRENCIES arraylist size is 2", 2, currenciesList.size());
+		assertSame("Check that Currencies is added", cc2, currenciesList.get(1));
 	}
 
 	@After

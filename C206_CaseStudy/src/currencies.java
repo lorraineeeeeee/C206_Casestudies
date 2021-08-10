@@ -7,8 +7,10 @@ public class currencies {
 	private double buyRate;
 	private Date dateOfTransaction;
 
-	public currencies(String currencies) {
+	public currencies(String currencies, double buyRate, double sellRate) {
 		this.currencies = currencies;
+		this.buyRate = buyRate;
+		this.sellRate = sellRate;
 
 	}
 

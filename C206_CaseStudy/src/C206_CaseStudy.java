@@ -5,38 +5,55 @@ import java.util.Date;
 
 public class C206_CaseStudy {
 
-	private static final int OPTION_QUIT = 4;
+	private static final int OPTION_QUIT = 7;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ArrayList<holdings> currencyList = new ArrayList<holdings>();
+		ArrayList<holdings> holdingList = new ArrayList<holdings>();
+		ArrayList<currencies> currenciesList = new ArrayList<currencies>();
 
-		holdings c1 = new holdings("USD", 100000.00);
-		holdings c2 = new holdings("AUD", 253400.00);
+		holdings c1 = new holdings("USD", 2.5, 3.0, 100000.00);
+		holdings c2 = new holdings("AUD", 3.0, 4.0, 253400.00);
 
-		currencyList.add(c1);
-		currencyList.add(c2);
+		currencies c3 = new currencies("USD", 2.5, 3.0);
+		currencies c4 = new currencies("AUD", 3.0, 4.0);
+
+		holdingList.add(c1);
+		holdingList.add(c2);
+
+		currenciesList.add(c3);
+		currenciesList.add(c4);
 
 		int option = 0;
 
 		while (option != OPTION_QUIT) {
 
 			menu();
+
 			option = Helper.readInt("Enter an option > ");
 
 			if (option == 1) {
-				C206_CaseStudy.viewCurrencyHolding(currencyList);
+				C206_CaseStudy.viewCurrencyHolding(holdingList);
 
 			} else if (option == 2) {
-				C206_CaseStudy.addCurrencyHolding(currencyList);
+				C206_CaseStudy.addCurrencyHolding(holdingList);
 
 			} else if (option == 3) {
-				C206_CaseStudy.deleteCurrencyHolding(currencyList);
+				C206_CaseStudy.deleteCurrencyHolding(holdingList);
+
+			} else if (option == 4) {
+				C206_CaseStudy.viewAllCurrencies(currenciesList);
+
+			} else if (option == 5) {
+				C206_CaseStudy.addCurrencies(currenciesList, c3);
+
+			} else if (option == 6) {
+				C206_CaseStudy.deleteCurrencies(currenciesList);
+
 			} else if (option == OPTION_QUIT) {
 
 				System.out.println("Bye!");
 			} else {
-
 				System.out.println("Invalid option");
 			}
 
@@ -49,7 +66,10 @@ public class C206_CaseStudy {
 		System.out.println("1. View Currencies Holding");
 		System.out.println("2. Add Currencies Holding");
 		System.out.println("3. Delete Currencies Holding");
-		System.out.println("4. Quit");
+		System.out.println("4 View currencies");
+		System.out.println("5.add currencies");
+		System.out.println("6. delete currencies");
+		System.out.println("7. Quit");
 	}
 
 	public static void setHeader(String header) {
@@ -61,37 +81,39 @@ public class C206_CaseStudy {
 	public static holdings inputHolding() {
 		String currency = Helper.readString("Enter currency > ");
 		double amount = Helper.readDouble("Enter the amount > ");
+		double buyRate = 0.0;
+		double sellRate = 0.0;
 
-		holdings hd = new holdings(currency, amount);
+		holdings hd = new holdings(currency, buyRate, sellRate, amount);
 		return hd;
 
 	}
 
-	public static void addCurrencyHolding(ArrayList<holdings> currencyList) {
+	public static void addCurrencyHolding(ArrayList<holdings> holdingList) {
 
-		currencyList.add(inputHolding());
+		holdingList.add(inputHolding());
 		System.out.println("Currency of holding added");
 	}
 
-	public static void deleteCurrencyHolding(ArrayList<holdings> currencyList) {
-		currencyList.remove(inputHolding());
+	public static void deleteCurrencyHolding(ArrayList<holdings> holdingList) {
+		holdingList.remove(inputHolding());
 		System.out.println("Currency of holding deleted");
 	}
 
-	public static String retrieveCurrencyHolding(ArrayList<holdings> currencyList) {
+	public static String retrieveCurrencyHolding(ArrayList<holdings> holdingList) {
 		String output = "";
-		for (int i = 0; i < currencyList.size(); i++) {
+		for (int i = 0; i < holdingList.size(); i++) {
 
-			output += String.format("%-10s %-10.2f \n", currencyList.get(i).getCurrencies(),
-					currencyList.get(i).getCompanyHoldings());
+			output += String.format("%-10s %-10.2f \n", holdingList.get(i).getCurrencies(),
+					holdingList.get(i).getCompanyHoldings());
 		}
 		return output;
 	}
 
-	public static void viewCurrencyHolding(ArrayList<holdings> currencyList) {
+	public static void viewCurrencyHolding(ArrayList<holdings> holdingList) {
 		C206_CaseStudy.setHeader("CURRENCY LIST");
 		String output = String.format("%-10s %-10s \n", "CURRENCY", "CURRENCY HOLDINGS");
-		output += retrieveCurrencyHolding(currencyList);
+		output += retrieveCurrencyHolding(holdingList);
 		System.out.println(output);
 	}
 
@@ -99,13 +121,45 @@ public class C206_CaseStudy {
 
 	int option = 0;
 
-	private static void itemTypeMenu() {
-		C206_CaseStudy.setHeader("ITEM TYPES");
-		System.out.println("1. currencies");
-		System.out.println("2. holdings");
+	public static String retrieveAllCurrencies(ArrayList<currencies> currenciesList) {// haziqah
+		String output = "";
+
+		for (int i = 0; i < currenciesList.size(); i++) {
+			output += String.format("%-15s %-10s %-10s\n", currenciesList.get(i).getCurrencies(),
+					currenciesList.get(i).getBuyRate(), currenciesList.get(i).getSellRate());
+		}
+		return output;
 	}
 
-	public static boolean doDeleteCurrency(ArrayList<currencies> currenciesList, String currencies) {
+	private static currencies inputCurrencies() { // haziqah
+		// TODO Auto-generated method stub
+		C206_CaseStudy.setHeader("add currencies");
+		String currency = Helper.readString("Enter new currency > ");
+		double buyrate = Helper.readDouble("Enter new buy rate > ");
+		double sellrate = Helper.readDouble("Enter new sell rate > ");
+
+		currencies c = new currencies(currency, buyrate, sellrate);
+		return c;
+	}
+
+	private static void addCurrencies(ArrayList<currencies> currenciesList, currencies c) { // haziqah
+		// TODO Auto-generated method stub
+		currenciesList.add(c);
+		System.out.println("New currency added!");
+	}
+
+	private static void viewAllCurrencies(ArrayList<currencies> currenciesList) {// haziqah
+		// TODO Auto-generated method stub
+		C206_CaseStudy.setHeader("view currencies");
+
+		String output = String.format("%-15s %-10s %-10s\n", "CURRENCY", "BUY RATES", "SELL RATES");
+
+		output += retrieveAllCurrencies(currenciesList);
+		System.out.println(output);
+
+	}
+
+	public static boolean doDeleteCurrency(ArrayList<currencies> currenciesList, String currencies) { // haziqah
 		boolean isDeleted = false;
 
 		for (int i = 0; i < currenciesList.size(); i++) {
@@ -116,7 +170,21 @@ public class C206_CaseStudy {
 		return isDeleted;
 	}
 
-	public static void doBuy(ArrayList<currencies> currenciesList, currencies cc) {
+	private static void deleteCurrencies(ArrayList<currencies> currenciesList) { // haziqah
+		// TODO Auto-generated method stub
+		C206_CaseStudy.viewAllCurrencies(currenciesList);
+		String currency = Helper.readString("Enter currency > ");
+		Boolean isDeleted = doDeleteCurrency(currenciesList, currency);
+
+		if (isDeleted == false) {
+			System.out.println("Invalid asset tag");
+		} else {
+			System.out.println(currency + " is deleted");
+		}
+	}
+
+	public static void doBuy(ArrayList<currencies> currenciesList, currencies cc2) {
+		C206_CaseStudy.viewAllCurrencies(currenciesList);
 		double money = Helper.readDouble("please enter the amount of money you want to exchange for");
 		for (int i = 0; i < currenciesList.size(); i++) {
 			if (currenciesList.get(i).getBuyRate() != 0.0) {
@@ -125,16 +193,16 @@ public class C206_CaseStudy {
 
 				System.out.println("you would receive " + calculate + currency);
 			}
-			currenciesList.add(cc);
+			currenciesList.add(cc2);
 		}
 
 	}
 
-	public static boolean DoBuyData(ArrayList<currencies> currenciesList, double buy) {
+	public static boolean DoBuyData(ArrayList<holdings> currencyList, double buy) {
 		boolean isLoaned = false;
 
-		for (int i = 0; i < currenciesList.size(); i++) {
-			double buyrate = currenciesList.get(i).getBuyRate();
+		for (int i = 0; i < currencyList.size(); i++) {
+			double buyrate = currencyList.get(i).getBuyRate();
 
 			if (buy == buyrate) {
 
