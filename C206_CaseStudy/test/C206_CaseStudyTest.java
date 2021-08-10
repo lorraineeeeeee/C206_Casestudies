@@ -24,8 +24,8 @@ public class C206_CaseStudyTest {
 	@Before
 	public void setUp() throws Exception {
 
-		c1 = new holdings("USD", 100000.00);
-		c2 = new holdings("AUD", 253400.00);
+		c1 = new holdings("USD", 2.5, 3.0, 100000.00);
+		c2 = new holdings("AUD", 3.5, 4.0, 253400.00);
 
 		currencyList = new ArrayList<holdings>();
 		currenciesList = new ArrayList<currencies>();
@@ -96,26 +96,35 @@ public class C206_CaseStudyTest {
 
 		// test if buy rate is correct
 		double buyRate = 2.5;
-		boolean can = C206_CaseStudy.DoBuyData(currencyList, buyRate);
+		boolean can = C206_CaseStudy.DoBuyData(currenciesList, buyRate);
 		assertFalse("check that calculation is correct ", can);
 
 		// test if can add transaction successfully
-		C206_CaseStudy.doBuy(currencyList, c1);
+		C206_CaseStudy.doBuy(currenciesList, c1);
 		assertEquals("Check that currency arraylist size is 1", 1, currenciesList);
 
-		C206_CaseStudy.doBuy(currencyList, c2);
+		C206_CaseStudy.doBuy(currenciesList, c2);
 		assertEquals("Check that currency arraylist size is 2", 2, currenciesList);
 		assertSame("Check that Currency is added", cc2, currenciesList.get(1));
 	}
 
 	@Test
 	public void sellTest() {
-		assertNotNull("test if there are any currencies to sell", currenciesList);
-		C206_CaseStudy.doSell(currenciesList);
-		double calculation = 0.0;
-		assertEquals("check that calculation is correct ", currenciesList, calculation);
+		// test if there are available arraylist to get data from
+		assertNotNull("test if there is any currencies to buy from ", currenciesList);
 
-		assertNotNull("check that system can display amount", currenciesList);
+		// test if buy rate is correct
+		double sellRate = 2.5;
+		boolean can = C206_CaseStudy.DoSellData(currenciesList, sellRate);
+		assertFalse("check that calculation is correct ", can);
+
+		// test if can add transaction successfully
+		C206_CaseStudy.doBuy(currenciesList, c1);
+		assertEquals("Check that currency arraylist size is 1", 1, currenciesList);
+
+		C206_CaseStudy.doBuy(currenciesList, c2);
+		assertEquals("Check that currency arraylist size is 2", 2, currenciesList);
+		assertSame("Check that Currency is added", cc2, currenciesList.get(1));
 	}
 
 	@Test
@@ -130,8 +139,8 @@ public class C206_CaseStudyTest {
 	public void tearDown() throws Exception {
 		cc1 = null;
 		cc2 = null;
-		cb1 = null;
-		cb2 = null;
+		c1 = null;
+		c2 = null;
 		currenciesList = null;
 
 	}

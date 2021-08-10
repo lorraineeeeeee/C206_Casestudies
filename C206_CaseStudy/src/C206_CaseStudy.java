@@ -198,7 +198,7 @@ public class C206_CaseStudy {
 
 	}
 
-	public static boolean DoBuyData(ArrayList<holdings> currencyList, double buy) {
+	public static boolean DoBuyData(ArrayList<currencies> currencyList, double buy) {
 		boolean isLoaned = false;
 
 		for (int i = 0; i < currencyList.size(); i++) {
@@ -212,6 +212,20 @@ public class C206_CaseStudy {
 		}
 		return isLoaned;
 
+	}
+
+	static boolean DoSellData(ArrayList<currencies> currencyList, double sell) {
+		boolean isLoaned = false;
+		for (int i = 0; i < currencyList.size(); i++) {
+			double buyrate = currencyList.get(i).getBuyRate();
+
+			if (sell == buyrate) {
+
+				isLoaned = true;
+
+			}
+		}
+		return isLoaned;
 	}
 
 	public static void doSell(ArrayList<currencies> currenciesList) {
