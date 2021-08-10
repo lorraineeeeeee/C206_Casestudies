@@ -1,14 +1,13 @@
-// Version for AY2013/14 Sem 2
+
 
 import java.util.*;
 
 public class Helper {
-  
-  static Scanner scan = new java.util.Scanner(System.in);
-  
+
+  @SuppressWarnings("resource")
   public static String readString(String prompt) {
     System.out.print(prompt);
-    return scan.nextLine();
+    return new Scanner(System.in).nextLine();
   }
 
   public static int readInt(String prompt) {
@@ -101,7 +100,7 @@ public class Helper {
   }
 
   public static Date readDate(String prompt) {
-    java.util.Date date = null;
+    Date date = null;
     boolean valid = false;
     while (!valid) {
       try {
@@ -110,7 +109,7 @@ public class Helper {
           int day = Integer.parseInt(input.substring(0, 2));
           int month = Integer.parseInt(input.substring(3, 5));
           int year = Integer.parseInt(input.substring(6, 10));
-          java.util.Calendar cal = java.util.Calendar.getInstance();
+          Calendar cal = Calendar.getInstance();
           cal.setLenient(false);
           cal.set(year, month - 1, day, 0, 0, 0);
           date = cal.getTime();

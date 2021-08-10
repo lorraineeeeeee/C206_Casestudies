@@ -5,73 +5,38 @@ import java.util.Date;
 
 public class C206_CaseStudy {
 
-	private static final int OPTION_QUIT = 5;
+	private static final int OPTION_QUIT = 4;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		ArrayList<holdings> currencyList = new ArrayList<holdings>();
 
-		ArrayList<currencies> currenciesList = new ArrayList<currencies>();
-		ArrayList<holdings> holdingList = new ArrayList<holdings>();
+		holdings c1 = new holdings("USD", 100000.00);
+		holdings c2 = new holdings("AUD", 253400.00);
 
-		currenciesList.add(new currencies("SGD", 3.5, 4.0));
-		currenciesList.add(new currencies("THB", 2.0, 5.0));
-		holdingList.add(new holdings("SGD", 3.5, 4.0, "SINGAPORE POOL"));
-		holdingList.add(new holdings("THB", 2.0, 5.0, "Comfort DELGRO"));
+		currencyList.add(c1);
+		currencyList.add(c2);
 
 		int option = 0;
 
 		while (option != OPTION_QUIT) {
 
-			C206_CaseStudy.menu();
+			menu();
 			option = Helper.readInt("Enter an option > ");
 
 			if (option == 1) {
-				// View all items
-				C206_CaseStudy.viewAllCurrencies(currenciesList);
-				C206_CaseStudy.viewAllholdings(holdingList);
+				C206_CaseStudy.viewCurrencyHolding(currencyList);
 
 			} else if (option == 2) {
-				// Add a new item
-				C206_CaseStudy.setHeader("ADD");
-				itemTypeMenu();
-
-				int itemType = Helper.readInt("Enter option to select what you want to add on to > ");
-
-				if (itemType == 1) {
-					// Add a currencies
-					currencies c = inputCurrencies();
-					C206_CaseStudy.addCurrencies(currenciesList, c);
-
-				} else if (itemType == 2) {
-					// Add holdings
-					holdings h = inputHoldings();
-					C206_CaseStudy.addholdings(holdingList, h);
-
-				} else {
-					System.out.println("Invalid type");
-				}
+				C206_CaseStudy.addCurrencyHolding(currencyList);
 
 			} else if (option == 3) {
-				// delete item
-				C206_CaseStudy.setHeader("Delete");
-				itemTypeMenu();
-
-				int itemType = Helper.readInt("Enter option to select item type > ");
-
-				if (itemType == 1) {
-					// Delete camcorder
-					C206_CaseStudy.deleteCurrencies(currenciesList);
-				} else if (itemType == 2) {
-					// Loan Chromebook
-					C206_CaseStudy.deleteHoldings(holdingList);
-				} else {
-					System.out.println("Invalid type");
-				}
-
+				C206_CaseStudy.deleteCurrencyHolding(currencyList);
 			} else if (option == OPTION_QUIT) {
-				// Return item
+
 				System.out.println("Bye!");
 			} else {
+
 				System.out.println("Invalid option");
 			}
 
@@ -79,20 +44,12 @@ public class C206_CaseStudy {
 
 	}
 
-	private static void itemTypeMenu() {
-		C206_CaseStudy.setHeader("ITEM TYPES");
-		System.out.println("1. currencies");
-		System.out.println("2. holdings");
-	}
-
 	public static void menu() {
 		C206_CaseStudy.setHeader("Currency exchange ");
-		System.out.println("1. View Currencies and holdings");
-		System.out.println("2. Add Currencies and holdings");
-		System.out.println("3. Delete Currencies and holdings");
+		System.out.println("1. View Currencies Holding");
+		System.out.println("2. Add Currencies Holding");
+		System.out.println("3. Delete Currencies Holding");
 		System.out.println("4. Quit");
-		Helper.line(80, "-");
-
 	}
 
 	public static void setHeader(String header) {
@@ -101,45 +58,64 @@ public class C206_CaseStudy {
 		Helper.line(80, "-");
 	}
 
-	private static void viewAllholdings(ArrayList<holdings> holdingList) {// yingnan
-		// TODO Auto-generated method stub
-		C206_CaseStudy.setHeader("view holdings");
+	public static holdings inputHolding() {
+		String currency = Helper.readString("Enter currency > ");
+		double amount = Helper.readDouble("Enter the amount > ");
+
+		holdings hd = new holdings(currency, amount);
+		return hd;
 
 	}
 
-	private static void viewAllCurrencies(ArrayList<currencies> currenciesList) {// haziqah
-		// TODO Auto-generated method stub
-		C206_CaseStudy.setHeader("view currencies");
+	public static void addCurrencyHolding(ArrayList<holdings> currencyList) {
 
+		currencyList.add(inputHolding());
+		System.out.println("Currency of holding added");
 	}
 
-	private static currencies inputCurrencies() { // Haziqah
-		// TODO Auto-generated method stub
-		C206_CaseStudy.setHeader("add currencies");
+	public static void deleteCurrencyHolding(ArrayList<holdings> currencyList) {
+		currencyList.remove(inputHolding());
+		System.out.println("Currency of holding deleted");
 	}
 
-	private static void addCurrencies(ArrayList<currencies> currenciesList, currencies c) { // haziqah
-		// TODO Auto-generated method stub
+	public static String retrieveCurrencyHolding(ArrayList<holdings> currencyList) {
+		String output = "";
+		for (int i = 0; i < currencyList.size(); i++) {
 
+			output += String.format("%-10s %-10.2f \n", currencyList.get(i).getCurrencies(),
+					currencyList.get(i).getCompanyHoldings());
+		}
+		return output;
 	}
 
-	private static holdings inputHoldings() { // yingnan
-		// TODO Auto-generated method stub
+	public static void viewCurrencyHolding(ArrayList<holdings> currencyList) {
+		C206_CaseStudy.setHeader("CURRENCY LIST");
+		String output = String.format("%-10s %-10s \n", "CURRENCY", "CURRENCY HOLDINGS");
+		output += retrieveCurrencyHolding(currencyList);
+		System.out.println(output);
 	}
 
-	private static void addholdings(ArrayList<holdings> holdingList, holdings h) { // yingnan
-		// TODO Auto-generated method stub
+	ArrayList<holdings> holdingList = new ArrayList<holdings>();
 
+	currenciesList.add(new currencies("SGD",3.5,4.0));currenciesList.add(new currencies("THB",2.0,5.0));holdingList.add(new holdings("SGD",3.5,4.0,"SINGAPORE POOL"));holdingList.add(new holdings("THB",2.0,5.0,"Comfort DELGRO"));
+
+	int option = 0;
+
+	private static void itemTypeMenu() {
+		C206_CaseStudy.setHeader("ITEM TYPES");
+		System.out.println("1. currencies");
+		System.out.println("2. holdings");
 	}
 
-	private static void deleteHoldings(ArrayList<holdings> holdingList) { // yingnan
-		// TODO Auto-generated method stub
+	public static boolean doDeleteCurrency(ArrayList<currencies> currenciesList, String currencies) {
+		boolean isDeleted = false;
 
-	}
-
-	private static void deleteCurrencies(ArrayList<currencies> currenciesList) { // haziqah
-		// TODO Auto-generated method stub
-
+		for (int i = 0; i < currenciesList.size(); i++) {
+			if (currencies.equalsIgnoreCase(currenciesList.get(i).getCurrencies())) {
+				isDeleted = true;
+			}
+		}
+		return isDeleted;
 	}
 
 	public static void doBuy(ArrayList<currencies> currenciesList, currencies cc) {
@@ -197,4 +173,9 @@ public class C206_CaseStudy {
 			System.out.println("no such transaction");
 		}
 	}
-}
+}=======
+
+>>>>>>>branch'master'
+
+of https:
+// github.com/lorraineeeeeee/C206_Casestudies.git
