@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class C206_CaseStudyTest {
 
-<<<<<<< HEAD
+
 	private currencies cc1;
 	private currencies cc2;
 	private holdings cb1;
@@ -16,10 +16,7 @@ public class C206_CaseStudyTest {
 
 	private ArrayList<currencies> currenciesList;
 
-	public C206_CaseStudyTest() {
-		super();
 
-=======
 	private holdings c1;
 	private holdings c2;
 	private ArrayList<holdings> currencyList;
@@ -35,21 +32,12 @@ public class C206_CaseStudyTest {
 		c2 = new holdings("AUD", 253400.00);
 
 		currencyList = new ArrayList<holdings>();
->>>>>>> branch 'master' of https://github.com/lorraineeeeeee/C206_Casestudies.git
-	}
-
-<<<<<<< HEAD
-	@Before
-	public void setUp() throws Exception {
-		// prepare test data
-
 		currenciesList = new ArrayList<currencies>();
-=======
-	@After
-	public void tearDown() throws Exception {
 
-		currencyList = null;
 	}
+
+
+
 
 	@Test
 	public void addHoldingsTest() {
@@ -97,14 +85,14 @@ public class C206_CaseStudyTest {
 		assertNull("Test if other fields are null",currencyList);
 		
 
->>>>>>> branch 'master' of https://github.com/lorraineeeeeee/C206_Casestudies.git
+
 	}
 
 	@Test
 	public void c206_test() {
 		// fail("Not yet implemented");
 		assertTrue("C206_CaseStudy_SampleTest ", true);
-<<<<<<< HEAD
+
 	}
 
 	@Test
@@ -152,9 +140,7 @@ public class C206_CaseStudyTest {
 		cb1 = null;
 		cb2 = null;
 		currenciesList = null;
-=======
 
->>>>>>> branch 'master' of https://github.com/lorraineeeeeee/C206_Casestudies.git
 	}
 
 }

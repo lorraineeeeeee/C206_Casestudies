@@ -97,8 +97,6 @@ public class C206_CaseStudy {
 
 	ArrayList<holdings> holdingList = new ArrayList<holdings>();
 
-	currenciesList.add(new currencies("SGD",3.5,4.0));currenciesList.add(new currencies("THB",2.0,5.0));holdingList.add(new holdings("SGD",3.5,4.0,"SINGAPORE POOL"));holdingList.add(new holdings("THB",2.0,5.0,"Comfort DELGRO"));
-
 	int option = 0;
 
 	private static void itemTypeMenu() {
@@ -173,9 +171,4 @@ public class C206_CaseStudy {
 			System.out.println("no such transaction");
 		}
 	}
-}=======
-
->>>>>>>branch'master'
-
-of https:
-// github.com/lorraineeeeeee/C206_Casestudies.git
+}
