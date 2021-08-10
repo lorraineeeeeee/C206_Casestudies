@@ -1,14 +1,21 @@
+import java.util.Date;
 
 public class currencies {
 
 	private String currencies;
 	private double sellRate;
 	private double buyRate;
+	private Date dateOfTransaction;
 
 	public currencies(String currencies, double sellRate, double buyRate) {
 		this.currencies = currencies;
 		this.sellRate = sellRate;
 		this.buyRate = buyRate;
+		
+	}
+
+	public Date getDateOfTransaction() {
+		return dateOfTransaction;
 	}
 
 	public double getSellRate() {
@@ -25,6 +32,10 @@ public class currencies {
 
 	public void setBuyRate(double buyRate) {
 		this.buyRate = buyRate;
+	}
+
+	public void setCurrencies(String currencies) {
+		this.currencies = currencies;
 	}
 
 	public String getCurrencies() {

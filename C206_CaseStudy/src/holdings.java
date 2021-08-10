@@ -1,14 +1,15 @@
+import java.util.Date;
 
 public class holdings extends currencies {
 	
-	private double companyHoldings;
+	private String companyHoldings;
 
-	public holdings(String currencies, double sellRate, double buyRate, double companyHoldings) {
+	public holdings(String currencies, double sellRate, double buyRate, String companyHoldings) {
 		super(currencies, sellRate, buyRate);
 		this.companyHoldings = companyHoldings;
 	}
 
-	public double getCompanyHoldings() {
+	public String getCompanyHoldings() {
 		return companyHoldings;
 	}
 	

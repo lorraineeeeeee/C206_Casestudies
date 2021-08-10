@@ -1,4 +1,7 @@
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class C206_CaseStudy {
 
@@ -9,6 +12,11 @@ public class C206_CaseStudy {
 
 		ArrayList<currencies> currenciesList = new ArrayList<currencies>();
 		ArrayList<holdings> holdingList = new ArrayList<holdings>();
+
+		currenciesList.add(new currencies("SGD", 3.5, 4.0));
+		currenciesList.add(new currencies("THB", 2.0, 5.0));
+		holdingList.add(new holdings("SGD", 3.5, 4.0, "SINGAPORE POOL"));
+		holdingList.add(new holdings("THB", 2.0, 5.0, "Comfort DELGRO"));
 
 		int option = 0;
 
@@ -71,7 +79,6 @@ public class C206_CaseStudy {
 
 	}
 
-
 	private static void itemTypeMenu() {
 		C206_CaseStudy.setHeader("ITEM TYPES");
 		System.out.println("1. currencies");
@@ -100,7 +107,7 @@ public class C206_CaseStudy {
 
 	}
 
-	private static void viewAllCurrencies(ArrayList<currencies> currenciesList) {// haziqah 
+	private static void viewAllCurrencies(ArrayList<currencies> currenciesList) {// haziqah
 		// TODO Auto-generated method stub
 		C206_CaseStudy.setHeader("view currencies");
 
@@ -124,14 +131,70 @@ public class C206_CaseStudy {
 		// TODO Auto-generated method stub
 
 	}
-	private static void deleteHoldings(ArrayList<holdings> holdingList) { //yingnan
-		// TODO Auto-generated method stub
-		
-	}
 
-	private static void deleteCurrencies(ArrayList<currencies> currenciesList) { //haziqah
+	private static void deleteHoldings(ArrayList<holdings> holdingList) { // yingnan
 		// TODO Auto-generated method stub
 
 	}
 
+	private static void deleteCurrencies(ArrayList<currencies> currenciesList) { // haziqah
+		// TODO Auto-generated method stub
+
+	}
+
+	public static void doBuy(ArrayList<currencies> currenciesList, currencies cc) {
+		double money = Helper.readDouble("please enter the amount of money you want to exchange for");
+		for (int i = 0; i < currenciesList.size(); i++) {
+			if (currenciesList.get(i).getBuyRate() != 0.0) {
+				double calculate = currenciesList.get(i).getBuyRate() * money;
+				String currency = Helper.readString("please enter your currency > ");
+
+				System.out.println("you would receive " + calculate + currency);
+			}
+			currenciesList.add(cc);
+		}
+
+	}
+
+	public static boolean DoBuyData(ArrayList<currencies> currenciesList, double buy) {
+		boolean isLoaned = false;
+
+		for (int i = 0; i < currenciesList.size(); i++) {
+			double buyrate = currenciesList.get(i).getBuyRate();
+
+			if (buy == buyrate) {
+
+				isLoaned = true;
+
+			}
+		}
+		return isLoaned;
+
+	}
+
+	public static void doSell(ArrayList<currencies> currenciesList) {
+
+		double AMT_OUT = Helper.readDouble("please enter the amount you want to buy from me > ");
+		for (int i = 0; i < currenciesList.size(); i++) {
+			if (currenciesList.get(i).getSellRate() != 0.0) {
+				double calculate = currenciesList.get(i).getSellRate() * AMT_OUT;
+				String currency = Helper.readString("please enter your currency > ");
+				System.out.println("you are selling $" + calculate + currency);
+			}
+		}
+
+	}
+
+	public static void viewAllTransaction(ArrayList<currencies> currenciesList, LocalDate date) {
+		int input = Helper.readInt("please input how many weeks of data you want > ");
+		if (input == 1 || input == 2 || input == 3) {
+			for (int i = 0; i < currenciesList.size(); i++) {
+				System.out.println(currenciesList.get(i).getDateOfTransaction() + currenciesList.get(i).getCurrencies()
+						+ currenciesList.get(i).getBuyRate());
+			}
+
+		} else {
+			System.out.println("no such transaction");
+		}
+	}
 }
